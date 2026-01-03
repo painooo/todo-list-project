@@ -14,58 +14,59 @@
 // folders (object) --> (folder id --> folder name, folder items) --> item --> item id
 // setup: priority & dueDate
 import './styles.css'
+import { Folder } from './folder.js'
+import { Todo } from './items.js'
 
-let folders = {};
+// let folders = {};
+// class Folder {
+//     #id;
+//     constructor(name, id){
+//         this.name = name;
+//         this.#id = id;
+//     }
+//     static printFolder(){
+//         console.log(folders);
+//     }
+//     setupFolder() {
+//         folders[this.#id] = [this.name];
+//         this.#createFolderBtn();
+//     }
+//     #createFolderBtn(){
+//         const btn = document.createElement("button");
+//         btn.setAttribute("data-id", this.#id);
+//         btn.classList.add("folder");
+//         btn.textContent = this.name;
+//         document.body.appendChild(btn);
+//         this.#activateFolderBtn(btn);
+//     }
+//     #activateFolderBtn(btn){
+//         btn.addEventListener("click", (e) => {
+//         let id = e.target.attributes[0].value;
+//         console.log(this.getFolder(id));
+//         });
+//     }
+//     add(item){
+//         folders[this.#id].push(item);
+//     }
+//     getFolder(id){
+//         return folders[id];
+//     }
+// }
 
-class Folder {
-    #id;
-    constructor(name, id){
-        this.name = name;
-        this.#id = id;
-    }
-    static printFolder(){
-        console.log(folders);
-    }
-    setupFolder() {
-        folders[this.#id] = [this.name];
-        this.#createFolderBtn();
-    }
-    #createFolderBtn(){
-        const btn = document.createElement("button");
-        btn.setAttribute("data-id", this.#id);
-        btn.classList.add("folder");
-        btn.textContent = this.name;
-        document.body.appendChild(btn);
-        this.#activateFolderBtn(btn);
-    }
-    #activateFolderBtn(btn){
-        btn.addEventListener("click", (e) => {
-        let id = e.target.attributes[0].value;
-        console.log(this.getFolder(id));
-    });
-}
-    add(item){
-        folders[this.#id].push(item);
-    }
-    getFolder(id){
-        return folders[id];
-    }
-}
-
-class Todo {
-    #id;
-    constructor(title, desc, dueDate, priority, notes, id){
-        this.title = title;
-        this.desc = desc;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
-        this.#id = id;
-    }
-    printTodo(){
-        console.log({title: this.title, desc: this.desc, dueDate: this.dueDate, priority: this.priority, notes: this.notes})
-    }
-}
+// class Todo {
+//     #id;
+//     constructor(title, desc, dueDate, priority, notes, id){
+//         this.title = title;
+//         this.desc = desc;
+//         this.dueDate = dueDate;
+//         this.priority = priority;
+//         this.notes = notes;
+//         this.#id = id;
+//     }
+//     printTodo(){
+//         console.log({title: this.title, desc: this.desc, dueDate: this.dueDate, priority: this.priority, notes: this.notes})
+//     }
+// }
 
 function createDummyTodo(){
     const id = createId();
