@@ -32,11 +32,3 @@ function handleName(name){
 function createId(){
     return crypto.randomUUID();
 }
-
-const dummyTodo = createDummyTodo();
-dummyTodo.printTodo();
-
-const dummyFolder = createFolder("test");
-Folder.add(dummyFolder.getId(), "test");
-const dummyFolder2 = createFolder();
-Folder.printFolder()
