@@ -26,16 +26,30 @@ class Folder {
     static printFolder(){
         console.log(folders);
     }
-    createFolder() {
+    setupFolder() {
         folders[this.#id] = [this.name];
+        this.#createFolderBtn();
     }
+    #createFolderBtn(){
+        const btn = document.createElement("button");
+        btn.setAttribute("data-id", this.#id);
+        btn.classList.add("folder");
+        btn.textContent = this.name;
+        document.body.appendChild(btn);
+        this.#activateFolderBtn(btn);
+    }
+    #activateFolderBtn(btn){
+        btn.addEventListener("click", (e) => {
+        let id = e.target.attributes[0].value;
+        console.log(this.getFolder(id));
+    });
+}
     add(item){
         folders[this.#id].push(item);
     }
-    getId(){
-        return this.#id;
+    getFolder(id){
+        return folders[id];
     }
-
 }
 
 class Todo {
@@ -57,54 +71,61 @@ function createDummyTodo(){
     const id = createId();
     return new Todo("dummyTitle", "dummyDesc", "dummyDueDate", "dummyPriority", "dummyNotes", id);
 }
-// // // // // // // // // // // Refactor this into Folder class
-function setupFolder(name){
-    const id = createId();
+function createFolder(name){
+    let id = createId();
     name = handleName(name);
-    const folder = createFolder(name, id);
-    createFolderBtn(name, id);
+    const folder = new Folder(name, id)
+    folder.setupFolder();
     return folder;
 }
+// // // // // // // // // // // Refactor this into Folder class
+// function setupFolder(name){
+//     const id = createId();
+//     name = handleName(name);
+//     const folder = createFolder(name, id);
+//     createFolderBtn(name, id);
+//     return folder;
+// }
 
-function createFolder(name, id){
-    const folder = new Folder(name, id);
-    folder.createFolder();
-    return folder;
-}
+// function createFolder(name, id){
+//     const folder = new Folder(name, id);
+//     folder.createFolder();
+//     return folder;
+// }
 
-function createFolderBtn(name, id){
-    const btn = document.createElement("button");
-    btn.setAttribute("data-id", id);
-    btn.classList.add("folder");
-    btn.textContent = name;
-    activateBtn(btn);
-    document.body.appendChild(btn);
-}
+// function createFolderBtn(name, id){
+//     const btn = document.createElement("button");
+//     btn.setAttribute("data-id", id);
+//     btn.classList.add("folder");
+//     btn.textContent = name;
+//     activateBtn(btn);
+//     document.body.appendChild(btn);
+// }
 
-function activateBtn(btn){
-    btn.addEventListener("click", (e) => {
-        let id = e.target.attributes[0].value;
-        console.log(getFolder(id));
-    })
-}
+// function activateBtn(btn){
+//     btn.addEventListener("click", (e) => {
+//         let id = e.target.attributes[0].value;
+//         console.log(getFolder(id));
+//     })
+// }
+
+// function getFolder(id){
+//     return folders[id];
+// }
+// // // // // // // // // // //
 function handleName(name){
     if (name == "" || name == undefined){
         name = "default"
     }
     return name;
 }
-
-function getFolder(id){
-    return folders[id];
-}
-// // // // // // // // // // //
 function createId(){
     return crypto.randomUUID();
 }
 const dummyTodo = createDummyTodo();
 dummyTodo.printTodo();
 
-const dummyFolder = setupFolder("test");
+const dummyFolder = createFolder("test");
 dummyFolder.add(dummyTodo);
-const dummyFolder2 = setupFolder();
+const dummyFolder2 = createFolder();
 Folder.printFolder()
