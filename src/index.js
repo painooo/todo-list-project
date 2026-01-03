@@ -1,21 +1,17 @@
-// Todo list Project:
-// ***Should be able to work in CLI first
-// (TODO: Brainstorm different parts and how they'll function)
-// Todo class should take in stuff which make up a todo item
-//      - Has the responsibility of all things "Todo"
-//      - Like printing out the list
-// Needs to be able to support duplicates of folders or todo. Meaning id
-// Handle id:
-//  - Be able to correspond each id returned to their object
-// Buttons:
-//  - Use the data-id to store id per button
-// Todos:
-//  - Each todo item's ul will have data-id with id
-// folders (object) --> (folder id --> folder name, folder items) --> item --> item id
-// setup: priority & dueDate
+// Todo list Project
+
 import './styles.css'
 import { Folder } from './folder.js'
 import { Todo } from './items.js'
+
+const createFolderBtn = document.querySelector("#createFolderBtn");
+const folderNameInput = document.querySelector("#name");
+createFolderBtn.addEventListener("click", () => {
+    const name = folderNameInput.value;
+    createFolder(name);
+});
+
+
 function createDummyTodo(){
     const id = createId();
     return new Todo("dummyTitle", "dummyDesc", "dummyDueDate", "dummyPriority", "dummyNotes", id);
@@ -36,10 +32,11 @@ function handleName(name){
 function createId(){
     return crypto.randomUUID();
 }
+
 const dummyTodo = createDummyTodo();
 dummyTodo.printTodo();
 
 const dummyFolder = createFolder("test");
-dummyFolder.add(dummyTodo);
+Folder.add(dummyFolder.getId(), "test");
 const dummyFolder2 = createFolder();
 Folder.printFolder()
