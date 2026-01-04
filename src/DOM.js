@@ -36,6 +36,7 @@ class FolderDOM {
     #createListItem(items){
         const list = document.createElement("ul");
         list.dataset.id = items['id'];
+        list.classList.add("list")
 
         const title = document.createElement("li");
         title.textContent = items['title'];
@@ -59,11 +60,11 @@ class FolderDOM {
         
         
         folderContent.appendChild(list);
-        folderContent.appendChild(title);
-        folderContent.appendChild(date);
-        folderContent.appendChild(priority);
-        folderContent.appendChild(desc);
-        folderContent.appendChild(notes);
+        list.appendChild(title);
+        list.appendChild(date);
+        list.appendChild(priority);
+        list.appendChild(desc);
+        list.appendChild(notes);
     }
     #clearContentArea(){
         folderContent.textContent="";

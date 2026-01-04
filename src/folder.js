@@ -10,8 +10,10 @@ class Folder {
     }
     static add(folderId, item){
         let content = JSON.parse(folders.getItem(folderId));
-        content.push(item);
-        folders.setItem(folderId, JSON.stringify(content))
+        if (content != undefined) {
+            content.push(item);
+            folders.setItem(folderId, JSON.stringify(content))
+        } else {alert('Create/Select a folder')}
     }
     static getFolder(id){
         return folders.getItem(id);
