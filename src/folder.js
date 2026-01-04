@@ -15,6 +15,14 @@ class Folder {
             folders.setItem(folderId, JSON.stringify(content))
         } else {alert('Create/Select a folder')}
     }
+    static remove(folderId, itemId) {
+        let content = JSON.parse(folders.getItem(folderId))
+        let contentUpdated = content.filter((item) => {
+            return item.id != itemId;
+        })
+        console.log(contentUpdated)
+        folders.setItem(folderId, JSON.stringify(contentUpdated));
+    }
     static getFolder(id){
         return folders.getItem(id);
     }

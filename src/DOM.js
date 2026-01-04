@@ -1,39 +1,39 @@
 const folderContent = document.querySelector("#folderContent");
 class FolderDOM {
-    constructor(name, id, Folder){
-        this.name = name;
-        this.id = id;
+    constructor(Folder){
         this.Folder = Folder;
     }
-    createFolderBtn(){
+    createFolderBtn(name, id){
         const foldersDom = document.querySelector("#folders");
         const btn = document.createElement("button");
         foldersDom.appendChild(btn);
-        this.#addBtnAttributes(btn);
+        this.#addBtnAttributes(btn, name, id);
         this.#activateFolderBtn(btn);
     }
-    #addBtnAttributes(btn) {
-        btn.dataset.id = this.id
+    #addBtnAttributes(btn, name, id) {
+        btn.dataset.id = id
         btn.classList.add("folder");
-        btn.textContent = this.name;
+        btn.textContent = name;
     }
     #activateFolderBtn(btn){ // When clicked should show the items in of it
         btn.addEventListener("click", () => {
             let id = btn.dataset.id;
             console.log(this.Folder.getFolder(id));
             sessionStorage.setItem("prevClicked", id);
-            this.#displayContent(sessionStorage.getItem("prevClicked"));
-
+            this.displayContent(sessionStorage.getItem("prevClicked"));
         });
     }
-    #displayContent(folderId){
+    displayContent(folderId){
         let folder = JSON.parse(this.Folder.getFolder(folderId));
         this.#clearContentArea();
+        const title = document.createElement('h1');
+        title.textContent = folder[0];
+        folderContent.appendChild(title);
         for (let i = 1; i < folder.length; i++){
-            this.#createListItem(folder[i])
+            this.#createListItem(folder[i], folderId)
         }
     }
-    #createListItem(items){
+    #createListItem(items, folderId){
         const list = document.createElement("ul");
         list.dataset.id = items['id'];
         list.classList.add("list")
@@ -59,6 +59,12 @@ class FolderDOM {
         notes.textContent = `Note: ${items['notes']}`;
         notes.classList.add("notes");
         
+        const del = document.createElement("button");
+        del.textContent="DELETE";
+        del.addEventListener("click", () => {
+            this.Folder.remove(folderId, list.dataset.id);
+            this.displayContent(folderId);
+        })
         
         folderContent.appendChild(list);
         list.appendChild(title);
@@ -66,6 +72,7 @@ class FolderDOM {
         list.appendChild(priority);
         list.appendChild(desc);
         list.appendChild(notes);
+        list.appendChild(del);
     }
     #clearContentArea(){
         folderContent.textContent="";

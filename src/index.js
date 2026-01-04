@@ -23,7 +23,9 @@ addTodoBtn.addEventListener("click", () => {
     let title = handleName(titleInput.value);
     let target = sessionStorage.getItem("prevClicked");
     let date = formatDate(dateInput.value);
+    const folderDOM = new FolderDOM(Folder);
     setupTodo(title, descInput.value, date, priorityInput.value, noteInput.value, target);
+    folderDOM.displayContent(target)
 });
 
 function formatDate(date) {
@@ -50,9 +52,9 @@ function setupFolder(name){
     let id = createId();
     name = handleName(name);
     const folder = new Folder(name, id);
-    const folderDOM = new FolderDOM(name, id, Folder);
+    const folderDOM = new FolderDOM(Folder);
     folder.storeFolder();
-    folderDOM.createFolderBtn();
+    folderDOM.createFolderBtn(name, id);
 }
 
 function handleName(name){
@@ -69,8 +71,8 @@ function init(){
     let folders = Folder.getFolders();
     for (let item of Object.keys(folders)) {
         console.log(item);
-        const folderDOM = new FolderDOM(JSON.parse(folders[item])[0], item, Folder);
-        folderDOM.createFolderBtn();
+        const folderDOM = new FolderDOM(Folder);
+        folderDOM.createFolderBtn(JSON.parse(folders[item])[0], item);
     }
 }
 init();
