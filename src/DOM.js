@@ -51,11 +51,12 @@ class FolderDOM {
         date.classList.add("date");
 
         const priority = document.createElement("li");
-        priority.textContent = items['priority'];
+        priority.textContent = `Priority: ${items['priority']}`;
         priority.classList.add("priority");
+        priority.classList.add(idPriorityClass(items['priority']));
 
         const notes = document.createElement("li");
-        notes.textContent = items['notes'];
+        notes.textContent = `Note: ${items['notes']}`;
         notes.classList.add("notes");
         
         
@@ -70,4 +71,12 @@ class FolderDOM {
         folderContent.textContent="";
     }
 }
+function idPriorityClass(priority){
+        let id = 'usual';
+        switch (parseInt(priority)) {
+            case 2: id = "important"; break;
+            case 3: id = "veryImportant"; break;
+        }
+        return id;
+    }
 export { FolderDOM };

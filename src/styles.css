@@ -3,3 +3,35 @@ body {
     border:goldenrod;
     padding:10px;
 }
+#folderContent {
+    display:grid;
+    background:gray;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap:12px;
+    
+}
+.list {
+    list-style: none;
+    padding:12px;
+    display:grid;
+    border:2px black dashed;
+}
+.title {
+    font-size:20px;
+    text-decoration: underline;
+}
+.desc {
+    border: 1px rgb(71, 70, 70) solid;
+}
+.notes {
+    font-size:10px;
+}
+.usual {
+    background:green;
+}
+.important {
+    background:rgb(255, 166, 0);
+}
+.veryImportant {
+    background:red;
+}

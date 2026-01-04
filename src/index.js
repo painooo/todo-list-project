@@ -1,9 +1,10 @@
 // Todo list Project
 
-import './styles.css'
-import { Folder } from './folder.js'
-import { Todo } from './items.js'
-import { FolderDOM } from './DOM.js'
+import './styles.css';
+import { Folder } from './folder.js';
+import { Todo } from './items.js';
+import { FolderDOM } from './DOM.js';
+import { format } from "date-fns";
 
 const folderNameInput = document.querySelector("#name");
 const titleInput = document.querySelector("#title");
@@ -11,7 +12,7 @@ const descInput = document.querySelector("#desc");
 const dateInput = document.querySelector("#date");
 const priorityInput = document.querySelector("#priority");
 const noteInput = document.querySelector("#note");
-const addTodoBtn = document.querySelector("#addTodoBtn")
+const addTodoBtn = document.querySelector("#addTodoBtn");
 const createFolderBtn = document.querySelector("#createFolderBtn");
 
 createFolderBtn.addEventListener("click", () => {
@@ -21,8 +22,22 @@ createFolderBtn.addEventListener("click", () => {
 addTodoBtn.addEventListener("click", () => {
     let title = handleName(titleInput.value);
     let target = sessionStorage.getItem("prevClicked");
-    setupTodo(title, descInput.value, dateInput.value, priorityInput.value, noteInput.value, target);
+    let date = formatDate(dateInput.value);
+    setupTodo(title, descInput.value, date, priorityInput.value, noteInput.value, target);
 });
+
+function formatDate(date) {
+    if (date == ""){
+        alert("Add a date! (default: Dec 12 2020)");
+        date = '2020-12-20'
+    }
+    console.log(date);
+    date = date.split('-')
+    let year = parseInt(date[0]);
+    let month = parseInt(date[1])-1;
+    let day = parseInt(date[2]);
+    return format(new Date(year, month, day), "MMM/dd/yyyy");
+}
 
 
 function setupTodo(title, desc, dueDate, priority, notes, target){
