@@ -1,7 +1,3 @@
-// When folder button is clicked it should open the list up
-// In inside the folder there'd be an option to add a todo item
-// 
-
 let folders = localStorage;
 class Folder {
     #id;

@@ -40,30 +40,6 @@ function handleName(name){
 function createId(){
     return crypto.randomUUID();
 }
-// const foldersDom = document.querySelector("#folders");
-// class FolderDOM {
-//     constructor(name, id){
-//         this.name = name;
-//         this.id = id;
-//     }
-//     createFolderBtn(){
-//         const btn = document.createElement("button");
-//         foldersDom.appendChild(btn);
-//         this.#addBtnAttributes(btn);
-//         this.#activateFolderBtn(btn);
-//     }
-//     #addBtnAttributes(btn) {
-//         btn.dataset.id = this.id
-//         btn.classList.add("folder");
-//         btn.textContent = this.name;
-//     }
-//     #activateFolderBtn(btn){
-//         btn.addEventListener("click", () => {
-//             let id = btn.dataset.id;
-//             console.log(Folder.getFolder(id));
-//         });
-//     }
-// }
 function createTodoDOM(list) {
 
 }
