@@ -5,30 +5,39 @@ import { Folder } from './folder.js'
 import { Todo } from './items.js'
 import { FolderDOM } from './DOM.js'
 
-
-
-const createFolderBtn = document.querySelector("#createFolderBtn");
 const folderNameInput = document.querySelector("#name");
+const titleInput = document.querySelector("#title");
+const descInput = document.querySelector("#desc");
+const dateInput = document.querySelector("#date");
+const priorityInput = document.querySelector("#priority");
+const noteInput = document.querySelector("#note");
+const addTodoBtn = document.querySelector("#addTodoBtn")
+const createFolderBtn = document.querySelector("#createFolderBtn");
+
 createFolderBtn.addEventListener("click", () => {
     const name = folderNameInput.value;
     setupFolder(name);
 });
+addTodoBtn.addEventListener("click", () => {
+    let title = handleName(titleInput.value);
+    let target = sessionStorage.getItem("prevClicked");
+    setupTodo(title, descInput.value, dateInput.value, priorityInput.value, noteInput.value, target);
+});
 
-function setupTodo(title, desc, dueDate, priority, notes){
+
+function setupTodo(title, desc, dueDate, priority, notes, target){
     const id = createId();
-    title = handleName(title);
     const todo = new Todo(title, desc, dueDate, priority, notes, id);
-    createTodoDOM(todo);
-    return todo;
+    console.log(Folder.getFolder());
+    Folder.add(target, todo);
 }
-function setupFolder(name){
+function setupFolder(name){ 
     let id = createId();
     name = handleName(name);
     const folder = new Folder(name, id);
     const folderDOM = new FolderDOM(name, id, Folder);
     folder.storeFolder();
     folderDOM.createFolderBtn();
-    return folder;
 }
 
 function handleName(name){
@@ -41,7 +50,9 @@ function createId(){
     return crypto.randomUUID();
 }
 function createTodoDOM(list) {
-
+    const listDOM = document.createElement("ul");
+    listDOM.classList.add("list");
+    listDOM.dataset.id = list[id];
 }
 
 function init(){

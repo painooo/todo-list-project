@@ -1,4 +1,3 @@
-const foldersDom = document.querySelector("#folders");
 class FolderDOM {
     constructor(name, id, Folder){
         this.name = name;
@@ -6,6 +5,7 @@ class FolderDOM {
         this.Folder = Folder;
     }
     createFolderBtn(){
+        const foldersDom = document.querySelector("#folders");
         const btn = document.createElement("button");
         foldersDom.appendChild(btn);
         this.#addBtnAttributes(btn);
@@ -16,10 +16,10 @@ class FolderDOM {
         btn.classList.add("folder");
         btn.textContent = this.name;
     }
-    #activateFolderBtn(btn){
+    #activateFolderBtn(btn){ // When clicked should show the items in of it
         btn.addEventListener("click", () => {
             let id = btn.dataset.id;
-            console.log(this.Folder.getFolder(id));
+            sessionStorage.setItem("prevClicked", id);
         });
     }
 }
