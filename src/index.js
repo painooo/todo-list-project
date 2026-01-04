@@ -49,11 +49,6 @@ function handleName(name){
 function createId(){
     return crypto.randomUUID();
 }
-function createTodoDOM(list) {
-    const listDOM = document.createElement("ul");
-    listDOM.classList.add("list");
-    listDOM.dataset.id = list[id];
-}
 
 function init(){
     let folders = Folder.getFolders();
