@@ -3,26 +3,34 @@
 import './styles.css'
 import { Folder } from './folder.js'
 import { Todo } from './items.js'
+import { FolderDOM } from './DOM.js'
+
+
 
 const createFolderBtn = document.querySelector("#createFolderBtn");
 const folderNameInput = document.querySelector("#name");
 createFolderBtn.addEventListener("click", () => {
     const name = folderNameInput.value;
-    createFolder(name);
+    setupFolder(name);
 });
 
-
-function createDummyTodo(){
+function setupTodo(title, desc, dueDate, priority, notes){
     const id = createId();
-    return new Todo("dummyTitle", "dummyDesc", "dummyDueDate", "dummyPriority", "dummyNotes", id);
+    title = handleName(title);
+    const todo = new Todo(title, desc, dueDate, priority, notes, id);
+    createTodoDOM(todo);
+    return todo;
 }
-function createFolder(name){
+function setupFolder(name){
     let id = createId();
     name = handleName(name);
-    const folder = new Folder(name, id)
-    folder.setupFolder();
+    const folder = new Folder(name, id);
+    const folderDOM = new FolderDOM(name, id, Folder);
+    folder.storeFolder();
+    folderDOM.createFolderBtn();
     return folder;
 }
+
 function handleName(name){
     if (name == "" || name == undefined){
         name = "default"
@@ -32,3 +40,40 @@ function handleName(name){
 function createId(){
     return crypto.randomUUID();
 }
+// const foldersDom = document.querySelector("#folders");
+// class FolderDOM {
+//     constructor(name, id){
+//         this.name = name;
+//         this.id = id;
+//     }
+//     createFolderBtn(){
+//         const btn = document.createElement("button");
+//         foldersDom.appendChild(btn);
+//         this.#addBtnAttributes(btn);
+//         this.#activateFolderBtn(btn);
+//     }
+//     #addBtnAttributes(btn) {
+//         btn.dataset.id = this.id
+//         btn.classList.add("folder");
+//         btn.textContent = this.name;
+//     }
+//     #activateFolderBtn(btn){
+//         btn.addEventListener("click", () => {
+//             let id = btn.dataset.id;
+//             console.log(Folder.getFolder(id));
+//         });
+//     }
+// }
+function createTodoDOM(list) {
+
+}
+
+function init(){
+    let folders = Folder.getFolders();
+    for (let item of Object.keys(folders)) {
+        console.log(item);
+        const folderDOM = new FolderDOM(JSON.parse(folders[item])[0], item, Folder);
+        folderDOM.createFolderBtn();
+    }
+}
+init();
