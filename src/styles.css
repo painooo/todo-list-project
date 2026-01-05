@@ -8,6 +8,7 @@ body {
     background:gray;
     grid-template-columns: repeat(auto-fill, 200px);
     gap:12px;
+    border-radius: 4px;
     
 }
 .list {
@@ -15,6 +16,7 @@ body {
     padding:12px;
     display:grid;
     border:2px black dashed;
+    border-radius: 4px;
 }
 .title {
     font-size:20px;
@@ -34,4 +36,16 @@ body {
 }
 .veryImportant {
     background:red;
+}
+.titleBox {
+    justify-content: flex;
+    border: 2px dotted black;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.del {
+    background:rgb(75, 1, 1);
+    color:white;
+    border: 1px solid red;
 }

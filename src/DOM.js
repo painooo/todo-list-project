@@ -24,11 +24,10 @@ class FolderDOM {
         });
     }
     displayContent(folderId){
-        let folder = JSON.parse(this.Folder.getFolder(folderId));
+        const folder = JSON.parse(this.Folder.getFolder(folderId));
         this.#clearContentArea();
-        const title = document.createElement('h1');
-        title.textContent = folder[0];
-        folderContent.appendChild(title);
+        const box = this.#createTitleBox(folderId, folder);
+        folderContent.appendChild(box);
         for (let i = 1; i < folder.length; i++){
             this.#createListItem(folder[i], folderId)
         }
@@ -61,6 +60,7 @@ class FolderDOM {
         
         const del = document.createElement("button");
         del.textContent="DELETE";
+        del.classList.add("del");
         del.addEventListener("click", () => {
             this.Folder.remove(folderId, list.dataset.id);
             this.displayContent(folderId);
@@ -76,6 +76,27 @@ class FolderDOM {
     }
     #clearContentArea(){
         folderContent.textContent="";
+    }
+    #createTitleBox(folderId, folder){
+        const box = document.createElement("div");
+        box.classList.add("titleBox");
+
+        const title = document.createElement('h1');
+        title.textContent = folder[0];
+        folderContent.appendChild(title);
+
+        const del = document.createElement("button");
+        del.textContent = "DELETE Folder"
+        del.classList.add("del");
+        del.addEventListener("click", () => {
+            this.#clearContentArea();
+            this.Folder.removeFolder(folderId);
+            location.reload();
+        })
+
+        box.appendChild(title);
+        box.appendChild(del);
+        return box;
     }
 }
 function idPriorityClass(priority){

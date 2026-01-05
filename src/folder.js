@@ -29,8 +29,8 @@ class Folder {
     storeFolder (){
         folders.setItem(this.#id, JSON.stringify([this.name]))
     }
-    removeFolder (){
-        folders.removeItem(this.#id);
+    static removeFolder (id){
+        folders.removeItem(id);
     }
 }
 export {Folder};

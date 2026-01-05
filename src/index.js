@@ -23,9 +23,11 @@ addTodoBtn.addEventListener("click", () => {
     let title = handleName(titleInput.value);
     let target = sessionStorage.getItem("prevClicked");
     let date = formatDate(dateInput.value);
-    const folderDOM = new FolderDOM(Folder);
     setupTodo(title, descInput.value, date, priorityInput.value, noteInput.value, target);
-    folderDOM.displayContent(target)
+    if (Folder.getFolder(target) != undefined) {
+        const folderDOM = new FolderDOM(Folder);
+        folderDOM.displayContent(target);
+    }
 });
 
 function formatDate(date) {
